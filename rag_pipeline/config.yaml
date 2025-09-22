@@ -1,0 +1,73 @@
+project: centry
+env: dev
+
+supabase:
+  url: ${SUPABASE_URL}
+  anon_key: ${SUPABASE_ANON_KEY}
+  service_key: ${SUPABASE_SERVICE_KEY}
+
+vector_store:
+  table: chunks
+  query_name: match_documents
+  embedding_dim: 1536
+  search:
+    retriever: "multiquery"      # "vanilla" - refers to no query expansion | "multiquery" | "compress"
+    top_k: 10
+    fetch_k: 30
+
+chunking:
+  splitter: recursive_character
+  chunk_size: 1200               # 1200 good for academic materials
+  chunk_overlap: 200
+
+llm:
+  provider: openai               # openai | anthropic | gemini | cohere
+  model: gpt-4.1
+  temperature: 0.2               # Newer models like gpt-5-mini supports only default of 1
+  max_output_tokens: 2048
+
+summaries:                      # set custom models for map and reduce
+  map_model: gpt-4o-mini
+  reduce_model: gpt-4.1-mini
+
+  temperature: 0.2
+  max_output_tokens: 5000
+
+  stuff_threshold_tokens: 128000
+  pack_by: document_id
+  pack_token_limit: 10000
+  max_map_calls: 24
+  sample_first_k: null
+
+embeddings:
+  provider: openai               # openai | gemini | cohere
+  model: text-embedding-3-small  # cohere: embed-v4.0, gemini: gemini-embedding-001; text-embedding-3-large
+  force_dim: 1536                # must stay the same - see vector_store.embedding_dim
+
+reranker:
+  provider: disable              # cohere | flashrank | bge | disabled
+  model: rerank-english-v3.0      # ms-marco-MiniLM-L-12-v2 | rerank-english-v3.0 | BAAI/bge-reranker-base
+  top_k: 15
+
+ocr: # not using anymore - only use Mistral
+  provider: paddleocr
+  lang: en
+
+asr:
+  model: base.en
+  device: auto 
+  compute_type: int8
+  language: en 
+  vad: true
+  beam_size: 5
+  no_speech_threshold: 0.6
+  reencode_fallback: true
+
+langsmith:
+  enabled: true
+  project: centry-dev
+
+evaluation:
+  dataset_path: rag_pipeline/evals/synth_dataset.jsonl
+  output_path: rag_pipeline/evals/results.json
+  max_contexts: 6
