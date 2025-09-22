@@ -70,9 +70,9 @@ The backend runs at http://localhost:8000.
 
 ## Project Structure
 
-- **`frontend/`** — Next.js app with onboarding, dashboard, topic views (chat, quizzes, summaries, upload).
-- **`backend/`** — FastAPI server, Supabase integration, ASR/TTS endpoints, RAG orchestration.
-- **`rag_pipeline/`** — Modular RAG pipeline (retrievers, rerankers, embeddings, summarisation, quiz generation).
+- **`frontend/`** - Next.js app with onboarding, dashboard, topic views (chat, quizzes, summaries, upload).
+- **`backend/`** - FastAPI server, Supabase integration, ASR/TTS endpoints, RAG orchestration.
+- **`rag_pipeline/`** - Modular RAG pipeline (retrievers, rerankers, embeddings, summarisation, quiz generation).
 
 ## Features
 
