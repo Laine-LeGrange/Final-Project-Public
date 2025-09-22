@@ -1,4 +1,4 @@
-# Centry — Multimodal RAG Learning Platform
+# Centry - Multimodal Learning Platform powered by RAG (Retrieval-Augmented-Generation)
 
 Centry is a multimodal learning assistant built with Next.js (frontend), FastAPI (backend), and a modular RAG pipeline. It supports uploads of documents, audio, and images, and enables Q&A, summarisation, and quiz generation grounded in your own study materials.
 
